@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <h>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>AppointerView</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
+
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <script src="assets/js/react.js"></script>
+    <script src="assets/js/react-with-addons.js" charset="utf-8"></script>
+    <script src="assets/js/JSXTransformer.js"></script>
+
+  </head>
+
+  <body>
+
+
+  <section id="container" >
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+
+      <!--header start-->
+      <header class="header green-bg">
+      <div class="row">
+          <!--left Blank Content-->
+          <div class="col-lg-2">
+
+          </div>
+
+          <div class="col-lg-8">
+
+              <!--Logo start-->
+
+              <a href="index.html" class="logo"><b>Appointerview</b></a>
+              <!--logo end-->
+
+              <div class="nav pull-right ">
+                  <div class="nav notify-row" id="top_menu">
+
+                      <ul class="nav top-menu">
+                          <!--  notification start -->
+                          <li class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                                  <i class="fa fa-tasks"></i>
+                                  <span class="badge bg-theme">4</span>
+
+                              </a>
+                              <ul class="dropdown-menu extended tasks-bar">
+                                  <div class="notify-arrow notify-arrow-green"></div>
+                                  <li>
+                                      <a href="index.html#">
+                                          <div class="task-info">
+                                              <div class="desc">DashGum Admin Panel</div>
+                                              <div class="percent">40%</div>
+                                          </div>
+                                          <div class="progress progress-striped">
+                                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                  <span class="sr-only">40% Complete (success)</span>
+                                              </div>
+                                          </div>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <div class="task-info">
+                                              <div class="desc">Database Update</div>
+                                              <div class="percent">60%</div>
+                                          </div>
+                                          <div class="progress progress-striped">
+                                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                  <span class="sr-only">60% Complete (warning)</span>
+                                              </div>
+                                          </div>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <div class="task-info">
+                                              <div class="desc">Product Development</div>
+                                              <div class="percent">80%</div>
+                                          </div>
+                                          <div class="progress progress-striped">
+                                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                  <span class="sr-only">80% Complete</span>
+                                              </div>
+                                          </div>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <div class="task-info">
+                                              <div class="desc">Payments Sent</div>
+                                              <div class="percent">70%</div>
+                                          </div>
+                                          <div class="progress progress-striped">
+                                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                                  <span class="sr-only">70% Complete (Important)</span>
+                                              </div>
+                                          </div>
+                                      </a>
+                                  </li>
+                                  <li class="external">
+                                      <a href="#">See All Tasks</a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <!--  notification end -->
+
+                          <!-- mailbox start-->
+                          <li id="header_inbox_bar" class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                                  <i class="fa fa-envelope-o"></i>
+                                  <span class="badge bg-theme">5</span>
+                              </a>
+                              <ul class="dropdown-menu extended inbox">
+                                  <div class="notify-arrow notify-arrow-green"></div>
+                                  <li>
+                                      <a href="index.html#">
+                                          <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Zac Snider</span>
+                                    <span class="time">Just now</span>
+                                    </span>
+                                    <span class="message">
+                                        Hi mate, how is everything?
+                                    </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Divya Manian</span>
+                                    <span class="time">40 mins.</span>
+                                    </span>
+                                    <span class="message">
+                                     Hi, I need your help with this.
+                                    </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Dan Rogers</span>
+                                    <span class="time">2 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Love your new Dashboard.
+                                    </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">
+                                          <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Dj Sherman</span>
+                                    <span class="time">4 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Please, answer asap.
+                                    </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.html#">See all messages</a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <!-- mailbox end-->
+
+                          <!-- user profile start-->
+                          <li  class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                                  <i class="glyphicon glyphicon-user"></i>
+                              </a>
+                              <ul class="dropdown-menu extended inbox">
+                                  <div class="notify-arrow notify-arrow-green"></div>
+
+                                  <li>
+                                      <a href="index.html#">
+                                          <i class="glyphicon glyphicon-user"></i>
+                                          <span class="from">Profile</span>
+                                      </a>
+                                  </li>
+
+                                  <li>
+                                      <a href="index.html#">
+                                          <i class="glyphicon glyphicon-off"></i>
+                                          <span class="from" >Log Off</span>
+                                      </a>
+                                  </li>
+
+                              </ul>
+
+                          </li>
+                          <!-- user profile end-->
+
+
+                      </ul>
+                      <!--  notification end -->
+
+                  </div>
+
+              </div>
+
+          </div>
+
+          <!--Right Blank Content-->
+          <div class="col-lg-2">
+
+          </div>
+      </div>
+
+      </header>
+
+      <!--header end-->
+
+      <!--content header start-->
+      <section class="content-header">
+      <div class="row">
+
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8">
+                  <ol class="breadcrumb">
+                      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                      <li class="active"><i class="fa fa-user"></i> profile</li>
+                  </ol>
+
+          </div>
+          <div class="col-lg-2"></div>
+      </div>
+      </section>
+      <!--Content header end-->
+
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+
+      <section id="main-content">
+      <section class="wrapper">
+          <div class="row">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-8">
+
+                  <!--User Basic info start-->
+                  <section class="content">
+
+
+                      <div class="panel panel-default">
+                          <div class="panel-heading">Basic Information
+                             <i class="fa fa-plus pull-right"> </i>
+                          </div>
+
+                          <div class="panel-body">
+
+                              <div class="container ">
+                                  <form  class="form-horizontal">
+                                      <fieldset >
+
+                                          <!-- Text input User Name-->
+                                          <div class="form-group ">
+                                              <label class="col-md-2 control-label" for="textinput">User name:</label>
+                                              <div class="col-md-3">
+                                                  <input  name="textinput" type="text" placeholder="name" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+
+                                          <!-- Multiple Radios--Sex (inline) -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="radios">Sex:</label>
+                                              <div class="col-md-3">
+                                                  <label class="radio-inline" for="radios-0">
+                                                      <input type="radio" name="radios" id="radios-0" value="1" checked="checked">
+                                                      Male
+                                                  </label>
+                                                  <label class="radio-inline" for="radios-1">
+                                                      <input type="radio" name="radios" id="radios-1" value="2">
+                                                      Female
+                                                  </label>
+                                              </div>
+                                          </div>
+
+
+                                          <!-- Text input-Phone-->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textinput">Phone:</label>
+                                              <div class="col-md-3">
+                                                  <input  name="textinput" type="text" placeholder="Phone" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+
+                                          <!-- Text input email-->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textinput">Email:</label>
+                                              <div class="col-md-3">
+                                                  <input  name="textinput" type="text" placeholder="Email" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+
+
+
+                                          <!-- Text input Skype ID-->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textinput">Skype ID:</label>
+                                              <div class="col-md-3">
+                                                  <input id="textinput" name="textinput" type="text" placeholder="Skype ID" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+
+                                          <!-- Select Country -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="selectbasic">Country:</label>
+                                              <div class="col-md-3">
+                                                  <select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Iran</option>
+                                                      <option value="2">USA</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+
+                                          <!-- Text input-->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textinput">Interest Company:</label>
+                                              <div class="col-md-3">
+                                                  <input id="textinput" name="textinput" type="text" placeholder="Company Name" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+                                          <!-- Textarea -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textarea">Interest Work:</label>
+                                              <div class="col-md-6">
+                                                  <form role="form">
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">Java Developer
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">UI Designer
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">IOS
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">PHP
+                                                      </label>
+
+                                                  </form>
+                                                  <form role="form">
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">Java Developer
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">UI Designer
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">IOS
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                          <input type="checkbox" value="">Others
+                                                      </label>
+
+                                                  </form>
+                                              </div>
+                                          </div>
+
+
+                                          <!-- Textarea -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textarea">Self-introduce:</label>
+                                              <div class="col-md-5">
+                                                  <textarea class="form-control" rows="5" id="textarea" name="textarea">Introduce Yourself</textarea>
+                                              </div>
+                                          </div>
+
+                                          <!-- Button -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="singlebutton"></label>
+                                              <div class="col-md-4">
+                                                  <button name="singlebutton" class="btn btn-primary" >Save</button>
+                                                  <button name="singlebutton" class="btn btn-primary" >Cancel</button>
+
+                                              </div>
+
+                                              <div class="col-md-4">
+
+                                              </div>
+
+                                          </div>
+
+                                      </fieldset>
+                                  </form>
+
+                              </div>
+                          </div>
+                      </div>
+
+
+                  </section>
+                  <!--User Basic info end-->
+
+                  <!--Education info start-->
+
+
+                  <div id="Education"></div>
+
+                  <script  type="text/jsx">
+                  //REact js
+                  var Education = React.createClass({
+                     mixins: [React.addons.LinkedStateMixin],
+
+                    getDefaultProps:function(){
+                        return{title:'lujianfeng',
+                        }
+                    },
+
+                    passToDb:function(){
+                      //event.preventDefault();
+                      var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5"
+                      console.log(this.refs.School.getDOMNode().value);
+                      console.log(this.refs.StartYear.getDOMNode().value);
+                      console.log(this.refs.StartMonth.getDOMNode().value);
+                      console.log(this.refs.GraduateYear.getDOMNode().value);
+                      console.log(this.refs.GraduateMonth.getDOMNode().value);
+                      console.log(this.refs.Major.getDOMNode().value);
+                      console.log(this.refs.Degree.getDOMNode().value);
+                      var School = this.refs.School.getDOMNode().value;
+                      var Subfield_of_study_id = this.refs.Major.getDOMNode().value;
+                      var StartYear = this.refs.StartYear.getDOMNode().value + "-" + this.refs.StartMonth.getDOMNode().value;
+                      var GraduateYear = this.refs.GraduateYear.getDOMNode().value + "-" + this.refs.GraduateMonth.getDOMNode().value;
+                      var Description = null;
+                      var Degree_id =  this.refs.Degree.getDOMNode().value;
+                      // ajax
+                      $.ajax({
+                               url: "http://www.codefriend.co:80/users/tictaclu/education/",
+                               type:"POST",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+
+                               data: {
+                                 "username": "Null",
+                                 "school":School,
+                                 "subfield_of_study_id": Subfield_of_study_id,
+                                 "period_start": StartYear,
+                                 "period_end": GraduateYear,
+                                 "description": Description,
+                                 "degree_id": Degree_id
+                               },
+                                     success: function() {
+                                        console.log("Success");
+                                    },
+                                    failure: function(data) {
+                                        alert('Got an error dude');
+                                    }
+                       });
+                        // ajax
+                    },
+
+                    test: function () {
+                      //event.preventDefault();
+                    console.log("test");
+                    },
+
+    render:function(){
+        return(
+                  <div>
+                  <section className="content">
+                     <div className="panel panel-default">
+                         <div className="panel-heading">Education Information
+                             <i className="fa fa-plus pull-right"> </i>
+                         </div>
+                         <div className="panel-body">
+                             <div className="container ">
+                                 <form id="User-info-form" className="form-horizontal">
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="textinput">School:</label>
+                                                        <div className="col-md-3">
+                                                            <input ref="School" type="text" placeholder="School" className="form-control input-md" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="selectbasic">Start Year:</label>
+                                                        <div className="col-md-1">
+                                                            <select ref="StartYear" name="selectbasic"  className="form-control">
+                                                                <option value="" selected disabled>year</option>
+                                                                <option>2015</option>
+                                                                <option>2014</option>
+                                                                <option>2013</option>
+                                                                <option>2012</option>
+                                                                <option>2011</option>
+                                                            </select>
+                                                        </div>
+                                                        <div className="col-md-1">
+                                                            <select ref="StartMonth" name="selectbasic" className="form-control">
+                                                                <option value="" selected disabled>month</option>
+                                                                <option>01</option>
+                                                                <option>02</option>
+                                                                <option>03</option>
+                                                                <option>04</option>
+                                                                <option>05</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="selectbasic">Graduate Year:</label>
+                                                        <div className="col-md-1">
+                                                            <select ref="GraduateYear" name="selectbasic" className="form-control">
+                                                                <option value="" selected disabled>year</option>
+                                                                <option>2015</option>
+                                                                <option>2014</option>
+                                                                <option>2013</option>
+                                                                <option>2012</option>
+                                                                <option>2011</option>
+                                                            </select>
+                                                        </div>
+                                                        <div className="col-md-1">
+                                                            <select ref="GraduateMonth" name="selectbasic" className="form-control">
+                                                                <option value="" selected disabled>month</option>
+                                                                <option>01</option>
+                                                                <option>02</option>
+                                                                <option>03</option>
+                                                                <option>04</option>
+                                                                <option>05</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="textinput">Major:</label>
+                                                        <div className="col-md-3">
+                                                            <input ref="Major" name="textinput" type="text" placeholder="Major" className="form-control input-md" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="selectbasic">Degree:</label>
+                                                        <div className="col-md-3">
+                                                            <select ref="Degree" id="selectbasic" name="selectbasic" className="form-control">
+                                                                <option value="1">Graduate</option>
+                                                                <option value="2">Diploma</option>
+                                                                <option value="3">Under-graduate</option>
+                                                                <option value="4">PHD</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="singlebutton"></label>
+                                                        <div className="col-md-4">
+                                                            <a onClick={this.passToDb}  className="btn btn-primary" >Save</a>
+                                                            <button  className="btn btn-primary" >Cancel</button>
+                                                            <a onClick={this.test}>test</a>
+                                                        </div>
+                                                    </div>
+                                               </form>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </section>
+                              </div>
+                            ) //return over
+                          }, // render Function
+                      });
+                      //var another = "????dd";
+                  var EducationLoop = React.createClass({
+                    render: function() {
+                      var rows = [], i = 0, len = 2;
+                      while (++i <= len) rows.push(i);
+                      return (
+                            <tbody>
+                              {rows.map(function (i) {
+                                return <Education key={i} index={i} />;
+                              })}
+                            </tbody>
+                      );
+                    }
+                  });
+                  React.render(
+                  <Education/>,
+                   document.getElementById("Education"),
+                  function(){
+                  }
+                  );
+                 </script>
+                  <!--Education info end-->
+
+
+                  <!--Work Experience start-->
+                  <section class="content">
+
+
+                      <div class="panel panel-default">
+                          <div class="panel-heading">Work Experience
+                              <i class="fa fa-plus pull-right"> </i>
+                          </div>
+
+                          <div class="panel-body">
+
+                              <div class="container ">
+                                  <form id="User-work-form" class="form-horizontal">
+                                      <fieldset >
+
+
+                                          <!-- Text input-School-->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textinput">Company Name:</label>
+                                              <div class="col-md-3">
+                                                  <input  name="textinput" type="text" placeholder="School" class="form-control input-md">
+
+                                              </div>
+                                          </div>
+
+                                          <!-- Select Basic Start Year -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="selectbasic">Start Year:</label>
+
+                                              <div class="col-md-1">
+                                                  <select id="Start" name="selectbasic"  class="form-control">
+                                                      <option value="" selected disabled>year</option>
+                                                      <option value="1">2015</option>
+                                                      <option value="2">2014</option>
+                                                      <option value="3">2013</option>
+                                                      <option value="4">2012</option>
+                                                      <option value="5">2011</option>
+                                                  </select>
+                                              </div>
+                                              <div class="col-md-1">
+                                                  <select id="Start year" name="selectbasic" class="form-control">
+                                                      <option value="" selected disabled>month</option>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+
+                                          <!-- Select Basic Graduate Year -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="selectbasic">Leave Year:</label>
+                                              <div class="col-md-1">
+                                                  <select id="leave" name="selectbasic" class="form-control">
+                                                      <option value="" selected disabled>year</option>
+                                                      <option value="1">2015</option>
+                                                      <option value="2">2014</option>
+                                                      <option value="3">2013</option>
+                                                      <option value="4">2012</option>
+                                                      <option value="5">2011</option>
+                                                  </select>
+                                              </div>
+                                              <div class="col-md-1">
+                                                  <select id="end" name="selectbasic" class="form-control">
+                                                      <option value="" selected disabled>month</option>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+
+
+                                          <!-- Select Basic Tittle -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="selectbasic">Tttle:</label>
+                                              <div class="col-md-3">
+                                                  <select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Staff</option>
+                                                      <option value="2">PM</option>
+                                                      <option value="2">Operation</option>
+                                                      <option value="2">Desinger</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+
+                                          <!-- Textarea -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="textarea">Main Project Experience:</label>
+                                              <div class="col-md-5">
+                                                  <textarea class="form-control" rows="5" id="textarea" name="textarea"></textarea>
+                                              </div>
+                                          </div>
+
+                                          <!-- Button -->
+                                          <div class="form-group">
+                                              <label class="col-md-2 control-label" for="singlebutton"></label>
+                                              <div class="col-md-4">
+                                                  <button name="singlebutton" class="btn btn-primary" >Save</button>
+                                                  <button name="singlebutton" class="btn btn-primary" >Cancel</button>
+
+                                              </div>
+
+
+                                          </div>
+
+                                      </fieldset>
+                                  </form>
+
+                              </div>
+                          </div>
+                      </div>
+
+
+                  </section>
+
+                  <!--Work Experience end-->
+
+
+
+
+              </div>
+              <div class="col-lg-2"></div>
+
+
+          </div>
+
+
+      </section>
+
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2015 - AppointerView
+              <a href="index.html#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
