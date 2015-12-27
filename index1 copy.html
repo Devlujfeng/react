@@ -20,7 +20,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
     <script src="assets/js/react.js"></script>
-    <script src="assets/js/react-with-addons.js" charset="utf-8"></script>
+    <!-- <script src="assets/js/react-with-addons.js" charset="utf-8"></script> -->
     <script src="assets/js/JSXTransformer.js"></script>
 
   </head>
@@ -424,14 +424,51 @@
                   <div id="Education"></div>
 
                   <script  type="text/jsx">
-                  //REact js
-                  var Education = React.createClass({
-                     mixins: [React.addons.LinkedStateMixin],
 
-                    getDefaultProps:function(){
-                        return{title:'lujianfeng',
-                        }
+                  var stateRecordMixin = {
+                    test: function () {
+                      //event.preventDefault();
+                    console.log("test");
                     },
+
+                    buttonValidate: function () {
+                    if (this.props.id == null || this.props.id == "" ) {
+                      this.passToDb;
+                      console.log("test");
+                    } else {
+                    console.log("im in >>>"+this.props.id);
+                    }
+                    this.updateEducation;
+                    },
+                    updateEducation: function () {
+                      $.ajax({
+                               url: "http://www.codefriend.co:80/users/tictaclu/education/",
+                               type:"POST",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+
+                               data: {
+                                 "username": "Null",
+                                 "school":School,
+                                 "subfield_of_study_id": Subfield_of_study_id,
+                                 "period_start": StartYear,
+                                 "period_end": GraduateYear,
+                                 "description": Description,
+                                 "degree_id": Degree_id
+                               },
+                                     success: function() {
+                                        console.log("Success");
+                                    },
+                                    failure: function(data) {
+                                        alert('Got an error dude');
+                                    }
+                       });
+                    },
+
+
+
 
                     passToDb:function(){
                       //event.preventDefault();
@@ -476,13 +513,134 @@
                        });
                         // ajax
                     },
+              		}
 
-                    test: function () {
-                      //event.preventDefault();
-                    console.log("test");
+
+                  //REact js
+                  var Education = React.createClass({
+                     mixins: [stateRecordMixin],
+                    getDefaultProps:function(){
+                        return{
+                          myObject:null,
+                          countryList:null,
+                          regionList:null,
+                          cityList:null
+                        }
                     },
 
+                    getInitialState: function() {
+                      return {
+                        optionsCountry:[],
+                        Country:"",
+                        Region:"",
+                        City:"",
+                        school:"",
+                        startYear:"",
+                        startMonth:"",
+                        endYear:"",
+                        endMonth:"",
+                        metaCate:"",
+                        subCate:"",
+                        degree:"",
+                        id:"",
+
+                      };
+                    },
+
+                    handleChange: function(event) {
+                    this.setState({
+                      school: event.target.value
+                    });
+                    },
+                    handleStartYear: function(event){
+                      this.setState({
+                        startYear:event.target.value
+                      });
+                    },
+                    handleStartMonth: function(event){
+                      this.setState({
+                        startMonth:event.target.value
+                      });
+                    },
+                    handleEndYear: function(event){
+                      this.setState({
+                        endYear:event.target.value
+                      });
+                    },
+                    handleEndMonth: function(event){
+                      this.setState({
+                        endMonth:event.target.value
+                      });
+                    },
+
+                    handleCountry: function(event){
+                      this.setState({
+                        Country:event.target.value
+                      });
+                      console.log("test");
+                    },
+                    handleMetaCate :function(event){
+                      this.setState({
+                        metaCate:event.target.value
+                      });
+                    },
+                    handleDegree :function(event){
+                      this.setState({
+                        subCate:event.target.value
+                      });
+                    },
+                    handleSubMajor :function(event){
+                      this.setState({
+                        degree:event.target.value
+                      });
+                    },
+                    handleCountry :function(event){
+                      this.setState({
+                        Country:event.target.value
+                      });
+                    },
+                    handleRegion :function(event){
+                      this.setState({
+                        Region:event.target.value
+                      });
+                    },
+                    handleCity :function(event){
+                      this.setState({
+                        City:event.target.value
+                      });
+                    },
+
+                    componentWillMount: function() {
+                    this.state.Country =  this.props.countryList;
+                    this.state.Region =  this.props.regionList;
+                    this.state.City =  this.props.cityList;
+                    this.state.school =  this.props.myObject["school"];
+                    this.state.startYear = this.props.myObject["period_start"].substring(0,4);
+                    this.state.startMonth = this.props.myObject["period_start"].substring(5,7);
+                    this.state.endYear = this.props.myObject["period_end"].substring(0,4);
+                    this.state.endMonth = this.props.myObject["period_end"].substring(5,7);
+                    this.state.major = this.props.myObject["subfield_of_study"]["subfield_of_study"];
+                    this.state.degree = this.props.myObject["degree"]["tier"];
+                    this.state.id = this.props.myObject["id"];
+                    // console.log(this.props.countryList);
+                    // console.log(this.props.countryList[0]);
+                    // if (this.props.countryList != null) {
+                    //   for (var i = 0; i < this.props.countryList.length; i++){
+                    //     var option = this.props.countryList[i];
+                    //     this.state.options.push(
+                    //        <option key={i} value={option.code}>{option.name}</option>
+                    //     );
+                    //   }
+                    // } else {
+                    //
+                    // }
+
+
+                    },
+
+
     render:function(){
+        console.log(this.props.myObject["id"]);
         return(
                   <div>
                   <section className="content">
@@ -491,19 +649,74 @@
                              <i className="fa fa-plus pull-right"> </i>
                          </div>
                          <div className="panel-body">
-                             <div className="container ">
+                             <div className="container">
                                  <form id="User-info-form" className="form-horizontal">
+
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="textinput">School:</label>
                                                         <div className="col-md-3">
-                                                            <input ref="School" type="text" placeholder="School" className="form-control input-md" />
+                                                            <input type="text" value={this.state.school} placeholder="School" className="form-control input-md" onChange={this.handleChange} />
                                                         </div>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label className="col-md-2 control-label" for="selectbasic">Start Year:</label>
-                                                        <div className="col-md-1">
-                                                            <select ref="StartYear" name="selectbasic"  className="form-control">
-                                                                <option value="" selected disabled>year</option>
+                                                        <label className="col-md-2 control-label" for="textinput">Loation:</label>
+                                                        <div className="col-md-2">
+                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleCountry}>
+                                                        <option value="D">Country</option>
+                                                        {this.state.optionsCountry}
+                                                        </select>
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                        <select ref="" name="selectbasic" value="D" className="form-control" onBlur={this.handleRegion}>
+                                                        <option value="D">Region</option>
+
+
+                                                        </select>
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                        <select ref="" name="selectbas" value="D" className="form-control" onBlur={this.handleCity}>
+                                                        <option value="D">City</option>
+
+
+                                                        </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" >Degree:</label>
+                                                        <div className="col-md-3">
+                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleDegree}>
+                                                        <option value="D">Degree</option>
+                                                        {this.state.optionsCountry}
+                                                        </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" >Meta Category:</label>
+                                                        <div className="col-md-2">
+                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleMetaCate}>
+                                                        <option value="D">Meta Category</option>
+                                                        {this.state.optionsCountry}
+                                                        </select>
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleSubMajor}>
+                                                        <option value="D">Meta Category</option>
+                                                        {this.state.optionsCountry}
+                                                        </select>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" for="selectbasic">Start Time:</label>
+                                                        <div className="col-md-2">
+                                                            <select ref="StartYear" value="D" name="selectbasic" className="form-control"  onBlur={this.handleStartYear} >
+                                                              <option value="D">Year</option>
+
                                                                 <option>2015</option>
                                                                 <option>2014</option>
                                                                 <option>2013</option>
@@ -511,9 +724,10 @@
                                                                 <option>2011</option>
                                                             </select>
                                                         </div>
-                                                        <div className="col-md-1">
-                                                            <select ref="StartMonth" name="selectbasic" className="form-control">
-                                                                <option value="" selected disabled>month</option>
+                                                        <div className="col-md-2">
+                                                            <select ref="StartMonth" value="D" name="selectbasic" className="form-control" onBlur={this.handleStartMonth} >
+                                                              <option value="D">Month</option>
+
                                                                 <option>01</option>
                                                                 <option>02</option>
                                                                 <option>03</option>
@@ -523,10 +737,11 @@
                                                         </div>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label className="col-md-2 control-label" for="selectbasic">Graduate Year:</label>
-                                                        <div className="col-md-1">
-                                                            <select ref="GraduateYear" name="selectbasic" className="form-control">
-                                                                <option value="" selected disabled>year</option>
+                                                        <label className="col-md-2 control-label" for="selectbasic">Graduate/Expected Graduate Time:</label>
+                                                        <div className="col-md-2">
+                                                            <select ref="GraduateYear"  value="D" name="selectbasic" className="form-control"  onBlur={this.handleEndYear} >
+                                                              <option value="D">Year</option>
+
                                                                 <option>2015</option>
                                                                 <option>2014</option>
                                                                 <option>2013</option>
@@ -534,9 +749,10 @@
                                                                 <option>2011</option>
                                                             </select>
                                                         </div>
-                                                        <div className="col-md-1">
-                                                            <select ref="GraduateMonth" name="selectbasic" className="form-control">
-                                                                <option value="" selected disabled>month</option>
+                                                        <div className="col-md-2">
+                                                            <select ref="GraduateMonth"  value="D" name="selectbasic" className="form-control" onBlur={this.handleEndMonth}>
+                                                            <option value="D">Month</option>
+
                                                                 <option>01</option>
                                                                 <option>02</option>
                                                                 <option>03</option>
@@ -546,28 +762,14 @@
                                                         </div>
                                                     </div>
                                                     <div className="form-group">
-                                                        <label className="col-md-2 control-label" for="textinput">Major:</label>
-                                                        <div className="col-md-3">
-                                                            <input ref="Major" name="textinput" type="text" placeholder="Major" className="form-control input-md" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label className="col-md-2 control-label" for="selectbasic">Degree:</label>
-                                                        <div className="col-md-3">
-                                                            <select ref="Degree" id="selectbasic" name="selectbasic" className="form-control">
-                                                                <option value="1">Graduate</option>
-                                                                <option value="2">Diploma</option>
-                                                                <option value="3">Under-graduate</option>
-                                                                <option value="4">PHD</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label className="col-md-2 control-label" for="singlebutton"></label>
+                                                        <label className="col-md-2 control-label"></label>
                                                         <div className="col-md-4">
-                                                            <a onClick={this.passToDb}  className="btn btn-primary" >Save</a>
-                                                            <button  className="btn btn-primary" >Cancel</button>
-                                                            <a onClick={this.test}>test</a>
+                                                            <div className="col-md-5">
+                                                            <a onClick={this.buttonValidate} className="btn btn-primary">SAVE</a>
+                                                            </div>
+                                                            <div className="col-md-3">
+                                                            <button className="btn btn-primary" >DELETE</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                </form>
@@ -581,29 +783,97 @@
                       });
                       //var another = "????dd";
                   var EducationLoop = React.createClass({
+
+                    getInitialState: function() {
+                      return {
+                        size: 0,
+                      }
+                    },
+
+                    getDefaultProps: function() {
+                      return {
+                        length: 0,
+                      }
+                    },
+
+                    componentWillMount: function() {
+                    },
+
                     render: function() {
-                      var rows = [], i = 0, len = 2;
-                      while (++i <= len) rows.push(i);
+                      var rows = [], i = 0, len = this.props.length;
+                      while (++i < len) rows.push(i);
                       return (
                             <tbody>
                               {rows.map(function (i) {
-                                return <Education key={i} index={i} />;
+                                return <Education key={i} index={i} myObject={dataCollection[i]} />;
                               })}
                             </tbody>
                       );
                     }
                   });
-                  React.render(
-                  <Education/>,
-                   document.getElementById("Education"),
-                  function(){
-                  }
-                  );
+
+//call to backend
+                  var size;
+                  var dataCollection = [];
+                  var objlistCountry = [];
+                  //call education data
+                  var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5";
+                  $.ajax({
+                           url: "http://www.codefriend.co:80/users/tictaclu/education/",
+                           type:"GET",
+                           beforeSend: function (request)
+                           {
+                               request.setRequestHeader("Authorization", Authorization);
+                           },
+                           data: {
+                             "username": "tictaclu"
+                           },
+                             success: function(data) {
+                                size = data['data'].length;
+                                dataCollection = data['data'];
+                                console.log(dataCollection);
+                                getData(); // call method to trigger reactjs
+                            },
+                            failure: function(data) {
+                                alert('Got an error dude');
+                            }
+                   });
+                   //call education data
+
+                   //call dropdownlist for city, region, Country
+                          $.ajax({
+                                   url: "http://www.codefriend.co:80/resource/countries",
+                                   type:"GET",
+                                   beforeSend: function (request)
+                                   {
+                                       request.setRequestHeader("Authorization", Authorization);
+                                   },
+                                         success: function(data) {
+                                            objlistCountry = data['data'];
+                                            //console.log(objlistCountry);
+
+                                        },
+                                        failure: function(data) {
+                                            alert('Got an error dude');
+                                        }
+                           });
+                   //call dropdownlist for city, region, Country
+
+//call to backend
+
+                   function getData(){ //这是一个普通的方法
+                     React.render(
+                     <EducationLoop length={size} />,
+                      document.getElementById("Education"),
+                         function(){
+                         });
+                    }
+
+
+
+
                  </script>
-                  <!--Education info end-->
 
-
-                  <!--Work Experience start-->
                   <section class="content">
 
 
