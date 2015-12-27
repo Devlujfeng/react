@@ -433,12 +433,12 @@
 
                     buttonValidate: function () {
                     if (this.props.id == null || this.props.id == "" ) {
-                      this.passToDb;
+                      //this.passToDb;
                       console.log("test");
                     } else {
                     console.log("im in >>>"+this.props.id);
                     }
-                    this.updateEducation;
+                    //this.updateEducation;
                     },
                     updateEducation: function () {
                       $.ajax({
@@ -574,11 +574,14 @@
                     },
 
                     handleCountry: function(event){
+                      //console.log(">>"+this.state.optionsCountry.length);
                       this.setState({
                         Country:event.target.value
                       });
-                      console.log("test");
+                      //console.log(this.state.Country);
                     },
+
+
                     handleMetaCate :function(event){
                       this.setState({
                         metaCate:event.target.value
@@ -594,11 +597,7 @@
                         degree:event.target.value
                       });
                     },
-                    handleCountry :function(event){
-                      this.setState({
-                        Country:event.target.value
-                      });
-                    },
+
                     handleRegion :function(event){
                       this.setState({
                         Region:event.target.value
@@ -608,6 +607,18 @@
                       this.setState({
                         City:event.target.value
                       });
+                    },
+
+
+                    fetchCountry: function () {
+                      if (this.state.optionsCountry.length == 0) {
+                        for (var i = 0; i < objlistCountry.length; i++){
+                          var option = objlistCountry[i];
+                          this.state.optionsCountry.push(
+                             <option key={i} value={option.code}>{option.name}</option>
+                          );
+                        }
+                      }
                     },
 
                     componentWillMount: function() {
@@ -622,25 +633,20 @@
                     this.state.major = this.props.myObject["subfield_of_study"]["subfield_of_study"];
                     this.state.degree = this.props.myObject["degree"]["tier"];
                     this.state.id = this.props.myObject["id"];
-                    // console.log(this.props.countryList);
-                    // console.log(this.props.countryList[0]);
-                    // if (this.props.countryList != null) {
-                    //   for (var i = 0; i < this.props.countryList.length; i++){
-                    //     var option = this.props.countryList[i];
-                    //     this.state.options.push(
-                    //        <option key={i} value={option.code}>{option.name}</option>
-                    //     );
-                    //   }
-                    // } else {
-                    //
-                    // }
+                    this.fetchCountry();
+                    //console.log(objlistCountry);
 
-
+                  console.log(this.state.optionsCountry);
                     },
 
 
+                    componentDidMount: function() {
+
+                    },
+
     render:function(){
         console.log(this.props.myObject["id"]);
+
         return(
                   <div>
                   <section className="content">
@@ -661,7 +667,7 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="textinput">Loation:</label>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleCountry}>
+                                                        <select ref="" name="selectbasi" Defaultvalue="D" value={this.state.Country} className="form-control" onChange={this.handleCountry}>
                                                         <option value="D">Country</option>
                                                         {this.state.optionsCountry}
                                                         </select>
@@ -841,22 +847,22 @@
                    //call education data
 
                    //call dropdownlist for city, region, Country
-                          $.ajax({
-                                   url: "http://www.codefriend.co:80/resource/countries",
-                                   type:"GET",
-                                   beforeSend: function (request)
-                                   {
-                                       request.setRequestHeader("Authorization", Authorization);
-                                   },
-                                         success: function(data) {
-                                            objlistCountry = data['data'];
-                                            //console.log(objlistCountry);
-
-                                        },
-                                        failure: function(data) {
-                                            alert('Got an error dude');
-                                        }
-                           });
+                   $.ajax({
+                            url: "http://www.codefriend.co:80/resource/countries/",
+                            type:"GET",
+                            beforeSend: function (request)
+                            {
+                                request.setRequestHeader("Authorization", Authorization);
+                            },
+                                  success: function(data) {
+                                    //console.log(data['data']);
+                                     objlistCountry = data['data'];
+                                     console.log(objlistCountry);
+                                 },
+                                 failure: function(data) {
+                                     alert('Got an error dude');
+                                 }
+                    });
                    //call dropdownlist for city, region, Country
 
 //call to backend
