@@ -531,6 +531,11 @@
                     getInitialState: function() {
                       return {
                         optionsCountry:[],
+                        regionList:[],
+                        cityList:[],
+                        ListDegree:[],
+                        ListmetaCate:[],
+                        ListSubCate:[],
                         Country:"",
                         Region:"",
                         City:"",
@@ -543,7 +548,6 @@
                         subCate:"",
                         degree:"",
                         id:"",
-
                       };
                     },
 
@@ -551,6 +555,7 @@
                     this.setState({
                       school: event.target.value
                     });
+
                     },
                     handleStartYear: function(event){
                       this.setState({
@@ -574,78 +579,243 @@
                     },
 
                     handleCountry: function(event){
-                      //console.log(">>"+this.state.optionsCountry.length);
                       this.setState({
                         Country:event.target.value
                       });
-                      //console.log(this.state.Country);
+                      this.fetchRegion(this.refs.Country.getDOMNode().value);
                     },
-
 
                     handleMetaCate :function(event){
                       this.setState({
                         metaCate:event.target.value
                       });
+                      console.log("gogogo"+this.refs.metaCate.getDOMNode().value);
+                      this.fetchSubCate(this.refs.metaCate.getDOMNode().value);
+
                     },
                     handleDegree :function(event){
-                      this.setState({
-                        subCate:event.target.value
-                      });
-                    },
-                    handleSubMajor :function(event){
                       this.setState({
                         degree:event.target.value
                       });
                     },
+                    handleSubMajor :function(event){
+                      //用户添加edu
+                      //console.log(this.state.sub);
+                      if (event == null && this.state.subCate == null ) {
+                        this.setState({
+                          subCate:""
+                        });
+                      }
+                      // 第一次读取数据傍定sub meta **需要让马老师添加meta的ID号码，之后要根据ID号的变更来判断是修改还是第一次傍定
+                      else if (event == null && this.state.subCate != null ) {
+                        this.setState({
+                          subCate:this.props.myObject["subfield_of_study"]["id"]
+                        });
+                      }
+                       else {
+                        this.setState({
+                          subCate:event.target.value
+                        });
+                      }
+                    },
 
                     handleRegion :function(event){
+                      if(event == null){
+                        this.setState({
+                          Region:this.props.myObject["location"]["region"]["code"]
+                        });
+                      }
+                      else{
                       this.setState({
                         Region:event.target.value
                       });
+                      this.fetchCity(this.refs.Country.getDOMNode().value.trim(),this.refs.Region.getDOMNode().value.trim());
+                      }
                     },
                     handleCity :function(event){
+                      if(event == null){
+                        this.setState({
+                          City:this.props.myObject["location"]["city"]["id"]
+                        });
+                      }
+                      else{
                       this.setState({
                         City:event.target.value
                       });
+                    }
+                  },
+                    bindDegree: function() {
+                      for (var i = 0; i < objListDegree.length; i++){
+                        var option = objListDegree[i];
+                        this.state.ListDegree.push(
+                           <option key={i} value={option.id}>{option.degree}</option>
+                        );
+                      }
+                    },
+                    bindMetaCate: function() {
+                      for (var i = 0; i < objListmetaCate.length; i++){
+                          var option = objListmetaCate[i];
+                          this.state.ListmetaCate.push(
+                             <option key={i} value={option.id}>{option.field_of_study}</option>
+                          );
+                        }
+                      },
+                    fetchSubCate: function (metaid) {
+                      // ajax
+                      $.ajax({
+                               url:"http://www.codefriend.co:80/resource/sub_field_of_study/?field_of_study_id=" + metaid,
+                               type:"GET",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function(data) {
+                                       this.setState({
+                                         ListSubCate:data["data"]
+                                       });
+                                       //获取到需要的sub cate list之后直接傍定陶selection tag
+                                       this.bindSubCate();
+                                       //
+                                    }.bind(this)
+                       });
+                        // ajax
+                    },
+                    bindSubCate: function () {
+                      var length = this.state.ListSubCate.length;
+                      for (var i = 0; i < length; i++){
+                        var option = this.state.ListSubCate[i];
+                        this.state.ListSubCate.push(
+                           <option key={i} value={option.id}>{option.subfield_of_study}</option>
+                        );
+                        //console.log("dd??");
+                      }
+                      this.handleSubMajor(null);
+                      //console.log(this.state.subCate);
                     },
 
 
-                    fetchCountry: function () {
-                      if (this.state.optionsCountry.length == 0) {
+
+
+
+                    bindCountry: function () {
                         for (var i = 0; i < objlistCountry.length; i++){
                           var option = objlistCountry[i];
                           this.state.optionsCountry.push(
                              <option key={i} value={option.code}>{option.name}</option>
                           );
                         }
+                    },
+                    fetchRegion: function (countryCode) {
+                      // ajax
+                      $.ajax({
+                               url: "  http://www.codefriend.co:80/resource/regions/?country_code=" + countryCode,
+                               type:"GET",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function(data) {
+                                       this.setState({
+                                         regionList:data["data"]
+                                       });
+                                       this.bindRegion();
+                                       //
+                                    }.bind(this)
+                       });
+                        // ajax
+                    },
+                    bindRegion: function() {
+                      var length = this.state.regionList.length;
+                      for (var i = 0; i < length; i++){
+                        var option = this.state.regionList[i];
+                        this.state.regionList.push(
+                           <option key={i} value={option.code}>{option.name_std}</option>
+                        );
+                        //console.log("dd??");
+                      }
+                      this.handleRegion(null);
+                    },
+
+
+                    fetchCity: function (countryCode,regionCode) {
+                      // ajax
+                      $.ajax({
+                               url: "http://www.codefriend.co:80/resource/cities/?country_code="+countryCode+"&region_code=" + regionCode,
+                               type:"GET",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function(data) {
+                                       this.setState({
+                                         cityList:data["data"]
+                                       });
+                                       this.bindCity();
+                                       //
+                                    }.bind(this)
+                       });
+                        // ajax
+                    },
+                    bindCity: function() {
+                      var length = this.state.cityList.length;
+                      for (var i = 0; i < length; i++){
+                        var option = this.state.cityList[i];
+                        this.state.cityList.push(
+                           <option key={i} value={option.id}>{option.name_std}</option>
+                        );
+                      }
+                      this.handleCity(null);
+                    },
+
+                    bindExistSubCate: function (metacateId) {
+                      //从API拿出来的数据作傍定到sub cate， 要获得sub cate, 需要拿到meta cate的ID 传入API
+                      this.fetchSubCate(metacateId);
+                    },
+                    bindExistRegion: function (Country,Region,City) {
+                      if(Country != null && Region != null && City != null)
+                      {
+                      this.fetchRegion(Country);
+                      this.fetchCity(Country,Region);
                       }
                     },
 
                     componentWillMount: function() {
-                    this.state.Country =  this.props.countryList;
-                    this.state.Region =  this.props.regionList;
-                    this.state.City =  this.props.cityList;
+                    this.bindCountry();
+                    this.bindDegree();
+                    this.bindMetaCate();
+                    this.state.Country = (this.props.myObject["location"] != null ? this.props.myObject["location"]["country"]["code"] : null);
+                    this.state.Region =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["region"]["code"] : null);
+                    this.state.City =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["city"]["id"] : null);
                     this.state.school =  this.props.myObject["school"];
                     this.state.startYear = this.props.myObject["period_start"].substring(0,4);
                     this.state.startMonth = this.props.myObject["period_start"].substring(5,7);
                     this.state.endYear = this.props.myObject["period_end"].substring(0,4);
                     this.state.endMonth = this.props.myObject["period_end"].substring(5,7);
-                    this.state.major = this.props.myObject["subfield_of_study"]["subfield_of_study"];
-                    this.state.degree = this.props.myObject["degree"]["tier"];
+                    this.state.metaCate = this.props.myObject["subfield_of_study"]["id"];
+                    this.state.degree = this.props.myObject["degree"]["id"];
                     this.state.id = this.props.myObject["id"];
-                    this.fetchCountry();
-                    //console.log(objlistCountry);
-
-                  console.log(this.state.optionsCountry);
+                    this.bindExistSubCate(this.state.metaCate);
+                    this.bindExistRegion(this.state.Country,this.state.Region,this.state.City);
+                    //this.bindExistRegion(this.state.);
+                    //console.log(this.state.Country);
                     },
 
 
                     componentDidMount: function() {
 
                     },
+                    componentWillUpdate: function() {
+                      //console.log("1");
+                    },
+
+                    componentDidUpdate: function () {
+                      //console.log("2");
+                    },
+
+
 
     render:function(){
-        console.log(this.props.myObject["id"]);
+        //console.log(this.props.myObject["id"]);
 
         return(
                   <div>
@@ -667,23 +837,21 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="textinput">Loation:</label>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasi" Defaultvalue="D" value={this.state.Country} className="form-control" onChange={this.handleCountry}>
+                                                        <select ref="Country" name="selectbasi" Defaultvalue="D" value={this.state.Country} className="form-control" onChange={this.handleCountry}>
                                                         <option value="D">Country</option>
                                                         {this.state.optionsCountry}
                                                         </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasic" value="D" className="form-control" onBlur={this.handleRegion}>
+                                                        <select ref="Region" name="selectbasic" value="D" className="form-control" value={this.state.Region} onChange={this.handleRegion}>
                                                         <option value="D">Region</option>
-
-
+                                                        {this.state.regionList}
                                                         </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbas" value="D" className="form-control" onBlur={this.handleCity}>
+                                                        <select ref="City" name="selectbas" value="D" value={this.state.City} className="form-control" onChange={this.handleCity}>
                                                         <option value="D">City</option>
-
-
+                                                       {this.state.cityList}
                                                         </select>
                                                         </div>
                                                     </div>
@@ -692,9 +860,9 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" >Degree:</label>
                                                         <div className="col-md-3">
-                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleDegree}>
+                                                        <select ref="" name="selectbasi" value="D" value={this.state.degree} className="form-control" onChange={this.handleDegree}>
                                                         <option value="D">Degree</option>
-                                                        {this.state.optionsCountry}
+                                                        {this.state.ListDegree}
                                                         </select>
                                                         </div>
                                                     </div>
@@ -702,15 +870,15 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" >Meta Category:</label>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleMetaCate}>
+                                                        <select ref="metaCate" name="selectbasi" className="form-control" value={this.state.metaCate} onChange={this.handleMetaCate}>
                                                         <option value="D">Meta Category</option>
-                                                        {this.state.optionsCountry}
+                                                        {this.state.ListmetaCate}
                                                         </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasi" value="D" className="form-control" onBlur={this.handleSubMajor}>
-                                                        <option value="D">Meta Category</option>
-                                                        {this.state.optionsCountry}
+                                                        <select ref="" name="selectbasi" className="form-control" value={this.state.subCate} onChange={this.handleSubMajor}>
+                                                        <option value="D">Sub Category</option>
+                                                        {this.state.ListSubCate}
                                                         </select>
                                                         </div>
                                                     </div>
@@ -822,6 +990,8 @@
                   var size;
                   var dataCollection = [];
                   var objlistCountry = [];
+                  var objListDegree =[];
+                  var objListmetaCate=[];
                   //call education data
                   var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5";
                   $.ajax({
@@ -846,7 +1016,7 @@
                    });
                    //call education data
 
-                   //call dropdownlist for city, region, Country
+                   //call dropdownlist for Country
                    $.ajax({
                             url: "http://www.codefriend.co:80/resource/countries/",
                             type:"GET",
@@ -857,13 +1027,50 @@
                                   success: function(data) {
                                     //console.log(data['data']);
                                      objlistCountry = data['data'];
-                                     console.log(objlistCountry);
+                                     //console.log(objlistCountry);
                                  },
                                  failure: function(data) {
                                      alert('Got an error dude');
                                  }
                     });
-                   //call dropdownlist for city, region, Country
+                   //call dropdownlist Country
+                  //  call Degree list
+                   $.ajax({
+                            url: "http://www.codefriend.co:80/resource/degrees/",
+                            type:"GET",
+                            beforeSend: function (request)
+                            {
+                                request.setRequestHeader("Authorization", Authorization);
+                            },
+                                  success: function(data) {
+                                    //console.log(data['data']);
+                                     objListDegree = data['data'];
+                                     //console.log(objlistCountry);
+                                 },
+                                 failure: function(data) {
+                                     alert('Got an error dude');
+                                 }
+                    });
+                   //  call Degree list
+                   //  call MetaCate
+                    $.ajax({
+                             url: "http://www.codefriend.co:80/resource/field_of_study/",
+                             type:"GET",
+                             beforeSend: function (request)
+                             {
+                                 request.setRequestHeader("Authorization", Authorization);
+                             },
+                                   success: function(data) {
+                                     //console.log(data['data']);
+                                      objListmetaCate = data['data'];
+                                      //console.log(objlistCountry);
+                                  },
+                                  failure: function(data) {
+                                      alert('Got an error dude');
+                                  }
+                     });
+                    //  call MeteCate
+
 
 //call to backend
 
