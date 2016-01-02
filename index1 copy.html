@@ -426,21 +426,30 @@
                   <script  type="text/jsx">
 
                   var stateRecordMixin = {
-                    test: function () {
-                      //event.preventDefault();
-                    console.log("test");
-                    },
+
 
                     buttonValidate: function () {
-                    if (this.props.id == null || this.props.id == "" ) {
-                      //this.passToDb;
-                      console.log("test");
-                    } else {
-                    console.log("im in >>>"+this.props.id);
+                    if (this.props.myObject == null) {
+                      this.passToDb();
+                    }
+                    else {
+                      this.updateEducation();
                     }
                     //this.updateEducation;
                     },
-                    updateEducation: function () {
+                    passToDb: function () {
+                      // get data from page
+                      var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5";
+                      var School = this.refs.School.getDOMNode().value;
+                      var Subfield_of_study_id = this.refs.Major.getDOMNode().value;
+                      var StartYear = this.refs.StartYear.getDOMNode().value + "-" + this.refs.StartMonth.getDOMNode().value;
+                      var GraduateYear = this.refs.GraduateYear.getDOMNode().value + "-" + this.refs.GraduateMonth.getDOMNode().value;
+                      var Description = this.refs.Description.getDOMNode().value;
+                      var Degree_id =  this.refs.Degree.getDOMNode().value;
+                      var location_city_id = this.refs.City.getDOMNode().value;
+                      var location_region_id = this.refs.Region.getDOMNode().value;
+                      var location_country_code =this.refs.Country.getDOMNode().value;
+                      //get data from page
                       $.ajax({
                                url: "http://www.codefriend.co:80/users/tictaclu/education/",
                                type:"POST",
@@ -452,11 +461,14 @@
                                data: {
                                  "username": "Null",
                                  "school":School,
-                                 "subfield_of_study_id": Subfield_of_study_id,
+                                 "degree_id": Degree_id,
                                  "period_start": StartYear,
                                  "period_end": GraduateYear,
+                                 "subfield_of_study_id": Subfield_of_study_id,
                                  "description": Description,
-                                 "degree_id": Degree_id
+                                 "location_city_id":location_city_id,
+                                 "location_region_id":location_region_id,
+                                 "location_country_code":location_country_code
                                },
                                      success: function() {
                                         console.log("Success");
@@ -468,27 +480,45 @@
                     },
 
 
+                    deleteEducation: function () {
+                      // ajax
+                      $.ajax({
+                               url: "http://www.codefriend.co:80/education/" + this.props.myObject["id"],
+                               type:"DELETE",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function() {
+                                        console.log("DELETED");
+                                    },
+                                    failure: function(data) {
+                                        alert('Got an error dude');
+                                    }
+                       });
+                        // ajax
+                    },
 
-
-                    passToDb:function(){
+                    updateEducation:function(){
                       //event.preventDefault();
-                      var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5"
-                      console.log(this.refs.School.getDOMNode().value);
-                      console.log(this.refs.StartYear.getDOMNode().value);
-                      console.log(this.refs.StartMonth.getDOMNode().value);
-                      console.log(this.refs.GraduateYear.getDOMNode().value);
-                      console.log(this.refs.GraduateMonth.getDOMNode().value);
-                      console.log(this.refs.Major.getDOMNode().value);
-                      console.log(this.refs.Degree.getDOMNode().value);
+                      // get data from page
+                      var Authorization ="Token 1e94d4feade081b5862b55bd8378b85e7e1c16d5";
                       var School = this.refs.School.getDOMNode().value;
                       var Subfield_of_study_id = this.refs.Major.getDOMNode().value;
                       var StartYear = this.refs.StartYear.getDOMNode().value + "-" + this.refs.StartMonth.getDOMNode().value;
                       var GraduateYear = this.refs.GraduateYear.getDOMNode().value + "-" + this.refs.GraduateMonth.getDOMNode().value;
                       var Description = null;
                       var Degree_id =  this.refs.Degree.getDOMNode().value;
+                      var location_city_id = this.refs.City.getDOMNode().value;
+                      var location_region_id = this.refs.Region.getDOMNode().value;
+                      var location_country_code =this.refs.Country.getDOMNode().value;
+                      var id = this.props.myObject["id"];
+                      //get data from page
+                      console.log(location_city_id);
+                      console.log("id"+id);
                       // ajax
                       $.ajax({
-                               url: "http://www.codefriend.co:80/users/tictaclu/education/",
+                               url: "http://www.codefriend.co:80/education/" + id,
                                type:"POST",
                                beforeSend: function (request)
                                {
@@ -496,13 +526,16 @@
                                },
 
                                data: {
-                                 "username": "Null",
+                                 "education_id": id,
                                  "school":School,
                                  "subfield_of_study_id": Subfield_of_study_id,
                                  "period_start": StartYear,
                                  "period_end": GraduateYear,
                                  "description": Description,
-                                 "degree_id": Degree_id
+                                 "degree_id": Degree_id,
+                                 "location_city_id":location_city_id,
+                                 "location_region_id":location_region_id,
+                                 "location_country_code":location_country_code
                                },
                                      success: function() {
                                         console.log("Success");
@@ -548,14 +581,18 @@
                         subCate:"",
                         degree:"",
                         id:"",
+                        Description:"",
                       };
                     },
-
+                    handleDescription: function () {
+                      this.setState({
+                        Description: event.target.value
+                      });
+                    },
                     handleChange: function(event) {
                     this.setState({
                       school: event.target.value
                     });
-
                     },
                     handleStartYear: function(event){
                       this.setState({
@@ -601,13 +638,13 @@
                     handleSubMajor :function(event){
                       //用户添加edu
                       //console.log(this.state.sub);
-                      if (event == null && this.state.subCate == null ) {
+                      if (event == null && this.props.myObject == null) {
                         this.setState({
                           subCate:""
                         });
                       }
                       // 第一次读取数据傍定sub meta **需要让马老师添加meta的ID号码，之后要根据ID号的变更来判断是修改还是第一次傍定
-                      else if (event == null && this.state.subCate != null ) {
+                      else if (event == null && this.props.myObject != null) {
                         this.setState({
                           subCate:this.props.myObject["subfield_of_study"]["id"]
                         });
@@ -620,7 +657,12 @@
                     },
 
                     handleRegion :function(event){
-                      if(event == null){
+                      if(event == null && this.props.myObject == null){
+                        this.setState({
+                          Region:""
+                        });
+                      }
+                      else if (event == null && this.props.myObject != null ){
                         this.setState({
                           Region:this.props.myObject["location"]["region"]["code"]
                         });
@@ -633,7 +675,12 @@
                       }
                     },
                     handleCity :function(event){
-                      if(event == null){
+                        if (event == null && this.props.myObject == null){
+                        this.setState({
+                          City:""
+                        });
+                      }
+                      else if (event == null && this.props.myObject != null){
                         this.setState({
                           City:this.props.myObject["location"]["city"]["id"]
                         });
@@ -661,6 +708,7 @@
                         }
                       },
                     fetchSubCate: function (metaid) {
+                      console.log(metaid);
                       // ajax
                       $.ajax({
                                url:"http://www.codefriend.co:80/resource/sub_field_of_study/?field_of_study_id=" + metaid,
@@ -692,10 +740,6 @@
                       this.handleSubMajor(null);
                       //console.log(this.state.subCate);
                     },
-
-
-
-
 
                     bindCountry: function () {
                         for (var i = 0; i < objlistCountry.length; i++){
@@ -780,12 +824,14 @@
                     },
 
                     componentWillMount: function() {
+                    //console.log("??");
                     this.bindCountry();
                     this.bindDegree();
                     this.bindMetaCate();
-                    this.state.Country = (this.props.myObject["location"] != null ? this.props.myObject["location"]["country"]["code"] : null);
-                    this.state.Region =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["region"]["code"] : null);
-                    this.state.City =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["city"]["id"] : null);
+                    if(this.props.myObject != null){
+                    this.state.Country = (this.props.myObject["location"] != null ? this.props.myObject["location"]["country"]["code"] : "");
+                    this.state.Region =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["region"]["code"] : "");
+                    this.state.City =  (this.props.myObject["location"] != null ? this.props.myObject["location"]["city"]["id"] : "");
                     this.state.school =  this.props.myObject["school"];
                     this.state.startYear = this.props.myObject["period_start"].substring(0,4);
                     this.state.startMonth = this.props.myObject["period_start"].substring(5,7);
@@ -794,8 +840,10 @@
                     this.state.metaCate = this.props.myObject["subfield_of_study"]["id"];
                     this.state.degree = this.props.myObject["degree"]["id"];
                     this.state.id = this.props.myObject["id"];
+                    this.state.Description = this.props.myObject["description"];
                     this.bindExistSubCate(this.state.metaCate);
                     this.bindExistRegion(this.state.Country,this.state.Region,this.state.City);
+                  }
                     //this.bindExistRegion(this.state.);
                     //console.log(this.state.Country);
                     },
@@ -831,7 +879,7 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="textinput">School:</label>
                                                         <div className="col-md-3">
-                                                            <input type="text" value={this.state.school} placeholder="School" className="form-control input-md" onChange={this.handleChange} />
+                                                            <input type="text" ref="School" value={this.state.school} placeholder="School" className="form-control input-md" onChange={this.handleChange} />
                                                         </div>
                                                     </div>
                                                     <div className="form-group">
@@ -860,7 +908,7 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" >Degree:</label>
                                                         <div className="col-md-3">
-                                                        <select ref="" name="selectbasi" value="D" value={this.state.degree} className="form-control" onChange={this.handleDegree}>
+                                                        <select ref="" name="selectbasi" ref="Degree" value="D" value={this.state.degree} className="form-control" onChange={this.handleDegree}>
                                                         <option value="D">Degree</option>
                                                         {this.state.ListDegree}
                                                         </select>
@@ -876,19 +924,16 @@
                                                         </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                        <select ref="" name="selectbasi" className="form-control" value={this.state.subCate} onChange={this.handleSubMajor}>
+                                                        <select ref="" name="selectbasi" ref="Major" className="form-control" value={this.state.subCate} onChange={this.handleSubMajor}>
                                                         <option value="D">Sub Category</option>
                                                         {this.state.ListSubCate}
                                                         </select>
                                                         </div>
                                                     </div>
-
-
-
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="selectbasic">Start Time:</label>
                                                         <div className="col-md-2">
-                                                            <select ref="StartYear" value="D" name="selectbasic" className="form-control"  onBlur={this.handleStartYear} >
+                                                            <select ref="StartYear" value={this.state.startYear} Defaultvalue="D" name="selectbasic" className="form-control"  onChange={this.handleStartYear} >
                                                               <option value="D">Year</option>
 
                                                                 <option>2015</option>
@@ -899,9 +944,8 @@
                                                             </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                            <select ref="StartMonth" value="D" name="selectbasic" className="form-control" onBlur={this.handleStartMonth} >
+                                                            <select ref="StartMonth" value={this.state.startMonth} Defaultvalue="D" name="selectbasic" className="form-control" onChange={this.handleStartMonth} >
                                                               <option value="D">Month</option>
-
                                                                 <option>01</option>
                                                                 <option>02</option>
                                                                 <option>03</option>
@@ -913,7 +957,7 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" for="selectbasic">Graduate/Expected Graduate Time:</label>
                                                         <div className="col-md-2">
-                                                            <select ref="GraduateYear"  value="D" name="selectbasic" className="form-control"  onBlur={this.handleEndYear} >
+                                                            <select ref="GraduateYear"  value={this.state.endYear} Defaultvalue="D" name="selectbasic" className="form-control"  onChange={this.handleEndYear} >
                                                               <option value="D">Year</option>
 
                                                                 <option>2015</option>
@@ -924,7 +968,7 @@
                                                             </select>
                                                         </div>
                                                         <div className="col-md-2">
-                                                            <select ref="GraduateMonth"  value="D" name="selectbasic" className="form-control" onBlur={this.handleEndMonth}>
+                                                            <select ref="GraduateMonth" value={this.state.endMonth} Defaultvalue="D" name="selectbasic" className="form-control" onChange={this.handleEndMonth}>
                                                             <option value="D">Month</option>
 
                                                                 <option>01</option>
@@ -935,6 +979,19 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
+                                                    <div className="form-group">
+                                                        <label className="col-md-2 control-label" >Description:</label>
+                                                        <div className="col-md-6">
+                                                        <textarea ref="Description" className="form-control input-md" rows="5" onChange={this.handleDescription}>
+                                                        {this.state.Description}
+                                                        </textarea>
+                                                        </div>
+                                                    </div>
+
+
+
+
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label"></label>
                                                         <div className="col-md-4">
@@ -942,7 +999,7 @@
                                                             <a onClick={this.buttonValidate} className="btn btn-primary">SAVE</a>
                                                             </div>
                                                             <div className="col-md-3">
-                                                            <button className="btn btn-primary" >DELETE</button>
+                                                            <a onClick={this.deleteEducation} className="btn btn-primary" >DELETE</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -974,7 +1031,7 @@
                     },
 
                     render: function() {
-                      var rows = [], i = 0, len = this.props.length;
+                      var rows = [], i = -2, len = this.props.length;
                       while (++i < len) rows.push(i);
                       return (
                             <tbody>
@@ -985,7 +1042,6 @@
                       );
                     }
                   });
-
 //call to backend
                   var size;
                   var dataCollection = [];
@@ -1008,14 +1064,18 @@
                                 size = data['data'].length;
                                 dataCollection = data['data'];
                                 console.log(dataCollection);
-                                getData(); // call method to trigger reactjs
+                                //getData(); // call method to trigger reactjs
                             },
                             failure: function(data) {
                                 alert('Got an error dude');
                             }
                    });
                    //call education data
+                   $(function(){
 
+
+
+                   })
                    //call dropdownlist for Country
                    $.ajax({
                             url: "http://www.codefriend.co:80/resource/countries/",
@@ -1027,7 +1087,8 @@
                                   success: function(data) {
                                     //console.log(data['data']);
                                      objlistCountry = data['data'];
-                                     //console.log(objlistCountry);
+                                     getData();
+                                     console.log(objlistCountry);
                                  },
                                  failure: function(data) {
                                      alert('Got an error dude');
@@ -1081,9 +1142,6 @@
                          function(){
                          });
                     }
-
-
-
 
                  </script>
 
