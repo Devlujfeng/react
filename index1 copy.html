@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <h>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>AppointerView</title>
+  <title>AppointerView</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <!--external css-->
+  <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
 
 
-    <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
-    <script src="assets/js/react.js"></script>
-    <!-- <script src="assets/js/react-with-addons.js" charset="utf-8"></script> -->
-    <script src="assets/js/JSXTransformer.js"></script>
+  <!-- Custom styles for this template -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style-responsive.css" rel="stylesheet">
+  <script src="assets/js/react.js"></script>
+  <!-- <script src="assets/js/react-with-addons.js" charset="utf-8"></script> -->
+  <script src="assets/js/JSXTransformer.js"></script>
 
-  </head>
+</head>
 
   <body>
 
@@ -258,6 +258,54 @@
               <div class="col-lg-2"></div>
               <div class="col-lg-8">
 
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                          <div class="container">
+
+                              <div class="col-lg-2">
+                                  <!-- Profile Image -->
+                                  <div class="box box-primary">
+                                      <div class="box-body box-profile">
+                                          <img class="profile-user-img img-responsive img-circle" src="./assets/img/ui-sherman.jpg" alt="User profile picture">
+                                          <input id="input-1a" type="file" class="file" data-show-preview="false">
+
+                                      </div><!-- /.box-body -->
+                                  </div><!-- /.box -->
+                              </div>
+                              <div class="col-lg-4">
+                                  <ul class="list-group list-group-unbordered">
+                                      <li >
+                                          <h6 class="profile-username text-left">Nina Mcintire</h6>
+                                          <label class="text-muted text-">Software Engineer,Google Company</label>
+                                      </li>
+                                      <li>
+                                          <b>Credits:</b>
+                                          <i class="fa fa-star" style="color:#FF9F1F"></i>
+                                          <i class="fa fa-star" style="color:#FF9F1F"></i>
+                                          <i class="fa fa-star-half-empty" style="color:#FF9F1F"></i>
+                                          <i class="fa fa-star-o" style="color:#FF9F1F"></i>
+                                          <i class="fa fa-star-o" style="color:#FF9F1F"></i>
+
+                                      </li>
+                                      <li>
+                                          <b>Skills: </b>
+                                          <span class="label label-pill label-default">C++</span>
+                                          <span class="label label-pill label-success">Java</span>
+                                          <span class="label label-pill label-info">JavaScript</span>
+                                          <span class="label label-pill label-warning">Html5</span>
+                                          <span class="label label-pill label-primary">C#</span>
+                                          <span class="label label-pill label-danger">Note.js</span>
+                                      </li>
+                                  </ul>
+                              </div>
+
+                              <div class="col-lg-6"></div>
+
+                          </div>
+
+                      </div>
+
+                  </div>
                   <!--User Basic info start-->
                   <section class="content">
 
@@ -507,7 +555,7 @@
                       var Subfield_of_study_id = this.refs.Major.getDOMNode().value;
                       var StartYear = this.refs.StartYear.getDOMNode().value + "-" + this.refs.StartMonth.getDOMNode().value;
                       var GraduateYear = this.refs.GraduateYear.getDOMNode().value + "-" + this.refs.GraduateMonth.getDOMNode().value;
-                      var Description = null;
+                      var Description = this.refs.Description.getDOMNode().value;
                       var Degree_id =  this.refs.Degree.getDOMNode().value;
                       var location_city_id = this.refs.City.getDOMNode().value;
                       var location_region_id = this.refs.Region.getDOMNode().value;
@@ -546,7 +594,7 @@
                        });
                         // ajax
                     },
-              		}
+                  }
 
 
                   //REact js
@@ -837,7 +885,8 @@
                     this.state.startMonth = this.props.myObject["period_start"].substring(5,7);
                     this.state.endYear = this.props.myObject["period_end"].substring(0,4);
                     this.state.endMonth = this.props.myObject["period_end"].substring(5,7);
-                    this.state.metaCate = this.props.myObject["subfield_of_study"]["id"];
+
+                    this.state.metaCate = this.props.myObject["field_of_study"]["id"];
                     this.state.degree = this.props.myObject["degree"]["id"];
                     this.state.id = this.props.myObject["id"];
                     this.state.Description = this.props.myObject["description"];
@@ -983,8 +1032,8 @@
                                                     <div className="form-group">
                                                         <label className="col-md-2 control-label" >Description:</label>
                                                         <div className="col-md-6">
-                                                        <textarea ref="Description" className="form-control input-md" rows="5" onChange={this.handleDescription}>
-                                                        {this.state.Description}
+                                                        <textarea ref="Description" value={this.state.Description} className="form-control input-md" rows="5" onChange={this.handleDescription}>
+
                                                         </textarea>
                                                         </div>
                                                     </div>
@@ -1133,6 +1182,7 @@
                     //  call MeteCate
 
 
+
 //call to backend
 
                    function getData(){ //这是一个普通的方法
@@ -1145,130 +1195,415 @@
 
                  </script>
 
-                  <section class="content">
+
+                  <!--Work Experience start-->
+                  <div id="workExp"></div>
 
 
-                      <div class="panel panel-default">
-                          <div class="panel-heading">Work Experience
-                              <i class="fa fa-plus pull-right"> </i>
-                          </div>
+                  <script  type="text/jsx">
+                  var WorkExperience = React.createClass({
 
-                          <div class="panel-body">
-
-                              <div class="container ">
-                                  <form id="User-work-form" class="form-horizontal">
-                                      <fieldset >
+                    getDefaultProps: function() {
+                      return {
+                        myObject:null,
+                      }
+                    },
 
 
-                                          <!-- Text input-School-->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="textinput">Company Name:</label>
-                                              <div class="col-md-3">
-                                                  <input  name="textinput" type="text" placeholder="School" class="form-control input-md">
+                    getInitialState: function() {
+                      return {
+                        optionsCountry:[],
+                        regionList:[],
+                        cityList:[],
+                        Country:"",
+                        Region:"",
+                        City:"",
+                        Company:"",
+                        startYear:"",
+                        startMonth:"",
+                        endYear:"",
+                        endMonth:"",
+                        currentJob:false,
+                        id:"",
+                        title:"",
+                        projectExp:"",
+                      }
+                    },
 
-                                              </div>
-                                          </div>
+                    handleCompany: function (event) {
+                      this.setState({
+                        Company: event.target.value
+                      });
+                      // body...
+                    },
+                    handleCountry: function(event){
+                      this.setState({
+                        Country:event.target.value
+                      });
+                      this.fetchRegion(this.refs.Country.getDOMNode().value);
+                    },
 
-                                          <!-- Select Basic Start Year -->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="selectbasic">Start Year:</label>
-
-                                              <div class="col-md-1">
-                                                  <select id="Start" name="selectbasic"  class="form-control">
-                                                      <option value="" selected disabled>year</option>
-                                                      <option value="1">2015</option>
-                                                      <option value="2">2014</option>
-                                                      <option value="3">2013</option>
-                                                      <option value="4">2012</option>
-                                                      <option value="5">2011</option>
-                                                  </select>
-                                              </div>
-                                              <div class="col-md-1">
-                                                  <select id="Start year" name="selectbasic" class="form-control">
-                                                      <option value="" selected disabled>month</option>
-                                                      <option value="1">1</option>
-                                                      <option value="2">2</option>
-                                                      <option value="3">3</option>
-                                                      <option value="4">4</option>
-                                                      <option value="5">5</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-
-                                          <!-- Select Basic Graduate Year -->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="selectbasic">Leave Year:</label>
-                                              <div class="col-md-1">
-                                                  <select id="leave" name="selectbasic" class="form-control">
-                                                      <option value="" selected disabled>year</option>
-                                                      <option value="1">2015</option>
-                                                      <option value="2">2014</option>
-                                                      <option value="3">2013</option>
-                                                      <option value="4">2012</option>
-                                                      <option value="5">2011</option>
-                                                  </select>
-                                              </div>
-                                              <div class="col-md-1">
-                                                  <select id="end" name="selectbasic" class="form-control">
-                                                      <option value="" selected disabled>month</option>
-                                                      <option value="1">1</option>
-                                                      <option value="2">2</option>
-                                                      <option value="3">3</option>
-                                                      <option value="4">4</option>
-                                                      <option value="5">5</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-
-
-                                          <!-- Select Basic Tittle -->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="selectbasic">Tttle:</label>
-                                              <div class="col-md-3">
-                                                  <select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Staff</option>
-                                                      <option value="2">PM</option>
-                                                      <option value="2">Operation</option>
-                                                      <option value="2">Desinger</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-
-                                          <!-- Textarea -->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="textarea">Main Project Experience:</label>
-                                              <div class="col-md-5">
-                                                  <textarea class="form-control" rows="5" id="textarea" name="textarea"></textarea>
-                                              </div>
-                                          </div>
-
-                                          <!-- Button -->
-                                          <div class="form-group">
-                                              <label class="col-md-2 control-label" for="singlebutton"></label>
-                                              <div class="col-md-4">
-                                                  <button name="singlebutton" class="btn btn-primary" >Save</button>
-                                                  <button name="singlebutton" class="btn btn-primary" >Cancel</button>
-
-                                              </div>
-
-
-                                          </div>
-
-                                      </fieldset>
-                                  </form>
-
-                              </div>
-                          </div>
-                      </div>
+                    handleRegion :function(event){
+                      if(event == null && this.props.myObject == null){
+                        this.setState({
+                          Region:""
+                        });
+                      }
+                      else if (event == null && this.props.myObject != null ){
+                        this.setState({
+                          Region:this.props.myObject["location"]["region"]["code"]
+                        });
+                      }
+                      else{
+                      this.setState({
+                        Region:event.target.value
+                      });
+                      this.fetchCity(this.refs.Country.getDOMNode().value.trim(),this.refs.Region.getDOMNode().value.trim());
+                      }
+                    },
+                    handleCity :function(event){
+                        if (event == null && this.props.myObject == null){
+                        this.setState({
+                          City:""
+                        });
+                      }
+                      else if (event == null && this.props.myObject != null){
+                        this.setState({
+                          City:this.props.myObject["location"]["city"]["id"]
+                        });
+                      }
+                      else{
+                      this.setState({
+                        City:event.target.value
+                      });
+                    }
+                    },
+                    handleTitle: function (event) {
+                      this.setState({
+                        title: event.target.value
+                      });
+                      // body...
+                    },
+                    handleStartYear: function (event) {
+                      this.setState({
+                        startYear: event.target.value
+                      });
+                      // body...
+                    },
+                    handleStartMonth: function (event) {
+                      this.setState({
+                        startMonth: event.target.value
+                      });
+                      // body...
+                    },
+                    handleEndYear: function (event) {
+                      this.setState({
+                        endYear: event.target.value
+                      });
+                      // body...
+                    },
+                    handleEndMonth: function (event) {
+                      this.setState({
+                        endMonth: event.target.value
+                      });
+                      // body...
+                    },
+                    handlecurrentJob: function (event) {
+                      this.setState({
+                        currentJob: event.target.value
+                      });
+                      // body...
+                    },
+                    handleprojectExp : function (event) {
+                      this.setState({
+                        projectExp: event.target.value
+                      });
+                      // body...
+                    },
 
 
-                  </section>
+
+                    bindCountry: function () {
+                        for (var i = 0; i < objlistCountry.length; i++){
+                          var option = objlistCountry[i];
+                          this.state.optionsCountry.push(
+                             <option key={i} value={option.code}>{option.name}</option>
+                          );
+                        }
+                    },
+                    fetchRegion: function (countryCode) {
+                      // ajax
+                      $.ajax({
+                               url: "  http://www.codefriend.co:80/resource/regions/?country_code=" + countryCode,
+                               type:"GET",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function(data) {
+                                       this.setState({
+                                         regionList:data["data"]
+                                       });
+                                       this.bindRegion();
+                                       //
+                                    }.bind(this)
+                       });
+                        // ajax
+                    },
+                    bindRegion: function() {
+                      var length = this.state.regionList.length;
+                      for (var i = 0; i < length; i++){
+                        var option = this.state.regionList[i];
+                        this.state.regionList.push(
+                           <option key={i} value={option.code}>{option.name_std}</option>
+                        );
+                        //console.log("dd??");
+                      }
+                      this.handleRegion(null);
+                    },
+
+
+                    fetchCity: function (countryCode,regionCode) {
+                      // ajax
+                      $.ajax({
+                               url: "http://www.codefriend.co:80/resource/cities/?country_code="+countryCode+"&region_code=" + regionCode,
+                               type:"GET",
+                               beforeSend: function (request)
+                               {
+                                   request.setRequestHeader("Authorization", Authorization);
+                               },
+                                     success: function(data) {
+                                       this.setState({
+                                         cityList:data["data"]
+                                       });
+                                       this.bindCity();
+                                       //
+                                    }.bind(this)
+                       });
+                        // ajax
+                    },
+                    bindCity: function() {
+                      var length = this.state.cityList.length;
+                      for (var i = 0; i < length; i++){
+                        var option = this.state.cityList[i];
+                        this.state.cityList.push(
+                           <option key={i} value={option.id}>{option.name_std}</option>
+                        );
+                      }
+                      this.handleCity(null);
+                    },
+
+
+                    componentWillMount: function() {
+                    this.bindCountry();
+
+
+
+
+
+                    },
+
+
+
+
+
+
+
+
+                    render: function() {
+                      return (
+
+                        <section className="content">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">Work Experience
+                                    <i className="fa fa-plus pull-right"> </i>
+                                </div>
+                                <div className="panel-body">
+                                    <div className="container ">
+                                        <form id="User-work-form" className="form-horizontal">
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" for="textinput">Company Name:</label>
+                                                    <div className="col-md-3">
+                                                        <input  name="textinput" type="text" placeholder="Company" className="form-control input-md" value={this.state.Company} className="form-control" onChange={this.handleCompany} />
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" for="textinput">Loation:</label>
+                                                    <div className="col-md-2">
+                                                    <select ref="Country" name="selectbasi" Defaultvalue="D" value={this.state.Country} className="form-control" onChange={this.handleCountry}>
+                                                    <option value="D">Country</option>
+                                                    {this.state.optionsCountry}
+                                                    </select>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    <select ref="Region" name="selectbasic" value="D" className="form-control" value={this.state.Region} onChange={this.handleRegion}>
+                                                    <option value="D">Region</option>
+                                                    {this.state.regionList}
+                                                    </select>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    <select ref="City" name="selectbas" value="D" value={this.state.City} className="form-control" onChange={this.handleCity}>
+                                                    <option value="D">City</option>
+                                                   {this.state.cityList}
+                                                    </select>
+                                                    </div>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" for="selectbasic">Tttle:</label>
+                                                    <div className="col-md-3">
+                                                        <input type="text" name="selectbasic" className="form-control" value={this.state.Title} className="form-control" onChange={this.handleTitle} />
+                                                    </div>
+                                                </div>
+
+
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" for="selectbasic">Start Time:</label>
+                                                    <div className="col-md-2">
+                                                        <select ref="StartYear" value={this.state.startYear} Defaultvalue="D" name="selectbasic" className="form-control"  onChange={this.handleStartYear} >
+                                                          <option value="D">Year</option>
+                                                            <option>2015</option>
+                                                            <option>2014</option>
+                                                            <option>2013</option>
+                                                            <option>2012</option>
+                                                            <option>2011</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <select ref="StartMonth" value={this.state.startMonth} Defaultvalue="D" name="selectbasic" className="form-control" onChange={this.handleStartMonth} >
+                                                          <option value="D">Month</option>
+                                                            <option>01</option>
+                                                            <option>02</option>
+                                                            <option>03</option>
+                                                            <option>04</option>
+                                                            <option>05</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" for="selectbasic">Graduate/Expected Graduate Time:</label>
+                                                    <div className="col-md-2">
+                                                        <select ref="GraduateYear"  value={this.state.endYear} Defaultvalue="D" name="selectbasic" className="form-control"  onChange={this.handleEndYear} >
+                                                          <option value="D">Year</option>
+
+                                                            <option>2015</option>
+                                                            <option>2014</option>
+                                                            <option>2013</option>
+                                                            <option>2012</option>
+                                                            <option>2011</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <select ref="GraduateMonth" value={this.state.endMonth} Defaultvalue="D" name="selectbasic" className="form-control" onChange={this.handleEndMonth}>
+                                                        <option value="D">Month</option>
+                                                            <option>01</option>
+                                                            <option>02</option>
+                                                            <option>03</option>
+                                                            <option>04</option>
+                                                            <option>05</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" value={this.state.currentJob}  onChange={this.handlecurrentJob} >Current Job:</label>
+                                                    <div className="col-md-5">
+                                                        <input  type="checkbox" />
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label" >Main Project Experience:</label>
+                                                    <div className="col-md-6">
+                                                        <textarea className="form-control" rows="5" id="textarea" name="textarea" value={this.state.projectExp}  onChange={this.handleprojectExp}></textarea>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="col-md-2 control-label"></label>
+                                                    <div className="col-md-4">
+                                                        <div className="col-md-5">
+                                                        <a onClick={this.buttonValidate} className="btn btn-primary">SAVE</a>
+                                                        </div>
+                                                        <div className="col-md-3">
+                                                        <a onClick={this.deleteEducation} className="btn btn-primary" >DELETE</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                      );
+                    }
+                  });
+
+                                var WorkExpLoop = React.createClass({
+
+                                  getInitialState: function() {
+                                    return {
+                                      size: 0,
+                                    }
+                                  },
+                                  getDefaultProps: function() {
+                                    return {
+                                      length: 0,
+                                    }
+                                  },
+                                  componentWillMount:function () {
+                                  },
+
+                                  render: function() {
+                                    var rows = [], i = -2, len = this.props.length;
+                                    while (++i < len) rows.push(i);
+                                    return (
+                                          <tbody>
+                                            {rows.map(function (i) {
+                                              return <WorkExperience key={i} index={i} myObject={dataCollectionWork[i]}/>;
+                                            })}
+                                          </tbody>
+                                    );
+                                  }
+                                });
+                      // call out APIs
+                       var length;
+                       dataCollectionWork = [];
+                        //console.log("??/");
+                        $.ajax({
+                                 url: "http://www.codefriend.co:80/users/tictaclu/works/",
+                                 type:"GET",
+                                 beforeSend: function (request)
+                                 {
+                                     request.setRequestHeader("Authorization", Authorization);
+                                 },
+                                 data: {
+                                   "username": "tictaclu"
+                                 },
+                                   success: function(data) {
+                                      length = data['data'].length;
+                                      dataCollectionWork = data['data'];
+                                      console.log(dataCollectionWork + ">>" + length);
+                                      getWorkExpData(); // call method to trigger reactjs
+                                  },
+                                  failure: function(data) {
+                                      alert('Got an error dude');
+                                  }
+                         });
+
+
+                      function getWorkExpData(){
+                        React.render(
+                        <WorkExpLoop length={length}/>,
+                         document.getElementById("workExp"),
+                            function(){
+                            });
+                      }
+
+
+                  </script>
+
+
 
                   <!--Work Experience end-->
-
-
-
-
               </div>
               <div class="col-lg-2"></div>
 
